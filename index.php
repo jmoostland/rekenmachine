@@ -1,12 +1,20 @@
 <!--in de URL werken met _GET en meerderen toevoegen met een &
 drie variabelen: getal1, getal2 en een operator (o.a. +.-,*,/ en mogelijk uitbreiden met:%,**)
 switch gebruiken-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+    </head>
+    <body>
+
+        <h1>Rekenmachine</h1>
+        <p>Vul hier het eerst getal in:</p>
+
+    </body>
+</html>
 
 <?php
-echo "Rekenmachine";
-echo"<br>";
-
-
 $getal1 = $_GET ['getal1'];
 $getal2 = $_GET ['getal2'];
 $operator = $_GET['operator'];
@@ -39,6 +47,7 @@ function modulo($getal1, $getal2) {
 function even_getal($getal1, $getal2) {
     return ($getal1 + $getal2 % 2) ? false : true;
 }
+
 //Dezelfde volgorde wordt aangehouden bij de if els (dus eerst false en oneven, etc)
 
 function exponent($getal1, $getal2) {
@@ -48,7 +57,7 @@ function exponent($getal1, $getal2) {
 
 switch ($operator) {
     default:
-        echo"Je mag een keuze maken uit: optellen, aftrekken, vermenigvuldigen, delen, modulo en exponent.";
+        echo"<b>Je mag een keuze maken uit: optellen, aftrekken, vermenigvuldigen, delen, modulo en exponent.</br>";
         break;
     case "optellen":
         echo optellen($getal1, $getal2);
@@ -101,3 +110,13 @@ switch ($operator) {
 }
 ?>
 
+<!DOCTYPE html>
+<html>
+    <body>
+        <br>
+        <a href="https://github.com/jmoostland">Voor meer informatie</a>
+        <br>
+        <br>
+<button type="button" onclick="alert('Om <button> te testen')">Click Me!</button>
+    </body>
+</html>
