@@ -39,7 +39,7 @@ function modulo($getal1, $getal2) {
 function even_getal($getal1, $getal2) {
     return ($getal1 + $getal2 % 2) ? false : true;
 }
-//Dezelfde volgorde wordt aangehouden bij de if els (dus eerst false en oneven, etc)
+//Dezelfde volgorde wordt aangehouden bij de if else (dus eerst false en oneven, etc)
 
 function exponent($getal1, $getal2) {
     echo"$getal1 ** $getal2 = " . ($getal1 ** $getal2);
