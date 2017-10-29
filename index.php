@@ -52,10 +52,24 @@ extract($_GET);
         <div style="color:#330099">
             <h1><i>Rekenmachine</i></h1>
         </div>
-        <div style="color:#330099">
-            <h2>Vul hier de getallen in:</h2>
+        <div style="color:#000000">
+            <h2>Je mag een keuze maken uit: 
+                <table>
+                    <tr>
+                        <th><li>optellen</li></th>
+                    <th><li>aftrekken</li></th>
+                    <th><li>vermenigvuldigen</li></th>
+                    <th><li>delen</li></th>
+                    </tr>
+                    <tr>
+                        <th><li>modulo</li></th>
+                    <th><li>exponent</li></th>
+                    </tr>
+                </table></h2>
         </div>
-
+        <div style="color:#00000">
+            <h3>Vul hier de getallen in:</h3>
+        </div>
         <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 
             Het eerste getal <input type="text" name="x" size="5" value="<?php print $x; ?>"/>
