@@ -1,145 +1,100 @@
-<!--in de URL werken met _GET en meerderen toevoegen met een &
-drie variabelen: getal1, getal2 en een operator (o.a. +.-,*,/ en mogelijk uitbreiden met:%,**)
-switch gebruiken-->
-<!DOCTYPE html>
+
+<!--drie variabelen: getal1, getal2 en een operator (o.a. +.-,*,/ en mogelijk uitbreiden met:%,**)-->
+
+
+<?php
+
+// function to calculate and return result
+function calculate($x, $y, $op) {
+    // calculate $prod using switch (case) statement
+    switch ($op) {
+        case '+':
+            $prod = $x + $y;
+            break;
+        case '-':
+            $prod = $x - $y;
+            break;
+        case '*':
+            $prod = $x * $y;
+            break;
+        case '%':
+            $prod = $x % $y;
+            break;
+        case '**':
+            $prod = $x ** $y;
+            break;
+        case '/':
+            if ($y == 0) {
+                $prod = "&#8734";
+            } else {
+                $prod = $x / $y;
+            }
+    }
+    // return the result
+    return $prod;
+}
+
+// declare all variables
+$x = 0;
+$y = 0;
+$prod = 0;
+$op = '';
+// grab the form values from $_GET hash
+extract($_GET);
+?>
+
 <html>
     <head>
-        <title>Page Title</title>
+        <title>Rekenmachine</title>
     </head>
+
     <body>
         <div style="color:#330099">
-            <h1>Rekenmachine</h1>
+            <h1><i>Rekenmachine</i></h1>
         </div>
-        <div style="color:#990099">
-            <p>Vul hier de getallen in:</p>
+        <div style="color:#330099">
+            <h2>Vul hier de getallen in:</h2>
         </div>
-        <form action="index.php" method="POST">
-            Eerste getal: <input type="text" name="getal1">
+
+        <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+
+            Het eerste getal <input type="text" name="x" size="5" value="<?php print $x; ?>"/>
             <br>
             <br>
-            <select name="operator">
-                <option name="optellen">+
-                <option name="aftrekken">-
-                <option name="vermenigvuldigen">*
-                <option name="delen">/
+
+            <select name="op">
+                <option value="+" <?php if ($op == '+') echo 'selected="selected"'; ?>>+</option>
+                <option value="-" <?php if ($op == '-') echo 'selected="selected"'; ?>>-</option>
+                <option value="*" <?php if ($op == '*') echo 'selected="selected"'; ?>>*</option>
+                <option value="/" <?php if ($op == '/') echo 'selected="selected"'; ?>>/</option>
+                <option value="%" <?php if ($op == '%') echo 'selected="selected"'; ?>>%</option>
+                <option value="**" <?php if ($op == '**') echo 'selected="selected"'; ?>>**</option>
             </select>
             <br>
             <br>
-            Tweede getal: <input type="text" name="getal2">
+            Het tweede getal  <input type="text" name="y" size="5" value="<?php print $y; ?>"/>
             <br>
-            <input type="submit" value="uitkomst">
+            <br>
+            <input type="submit" name="calc" value="Bereken"/>
         </form>
-    </body>
-</html>
 
-<?php
-$getal1 = $_POST ['getal1'];
-$getal2 = $_POST ['getal2'];
-$operator = $_POST['operator'];
+        <?php
+        if (isset($calc)) {
+            // check that $x & $y are numeric
 
-function optellen($getal1, $getal2) {
-    echo "$getal1 + $getal2 = " . ($getal1 + $getal2);
-    echo"<br>";
-}
+            if (is_numeric($x) && is_numeric($y)) {
+                // call the caculate function and pass $x, $y & $op as args.
+                $prod = calculate($x, $y, $op);
 
-function aftrekken($getal1, $getal2) {
-    echo "$getal1 - $getal2 = " . ($getal1 - $getal2);
-    echo"<br>";
-}
-
-function vermenigvuldigen($getal1, $getal2) {
-    echo"$getal1 x $getal2 = " . ($getal1 * $getal2);
-    echo"<br>";
-}
-
-function delen($getal1, $getal2) {
-    echo "$getal1 : $getal2 = " . ($getal1 / $getal2);
-    echo"<br>";
-}
-
-function modulo($getal1, $getal2) {
-    echo"$getal1 % $getal2 = " . ($getal1 % $getal2);
-    echo"<br>";
-}
-
-function even_getal($getal1, $getal2) {
-    return ($getal1 + $getal2 % 2) ? false : true;
-}
-
-//Dezelfde volgorde wordt aangehouden bij de if else (dus eerst false en oneven, etc)
-
-function exponent($getal1, $getal2) {
-    echo"$getal1 ** $getal2 = " . ($getal1 ** $getal2);
-    echo"<br>";
-}
-
-switch ($operator) {
-    default:
-        echo"<b><dl><dt>" .
-        "Je mag een keuze maken uit:<dt><dd> optellen</dd><dd> aftrekken</dd> <dd>vermenigvuldigen</dd><dd> delen</dd><dd>modulo</dd><dd>exponent.</dd></br>";
-        break;
-    case "optellen":
-
-        if ($operator == "optellen") {
-            echo optellen($getal1, $getal2);
+                // print the result 
+                echo "<p>$x $op $y = $prod</p>";
+            } else {
+                // unaccepatable values
+                echo "<br>";
+                echo "<p>Er is niet een getal ingevuld.<br>Probeer opnieuw.</p>";
+            }
         }
-        if (even_getal($getal1, $getal2)) {
-            echo "<br> Het getal is oneven";
-        } else {
-            echo "<br> Het getal is even";
-        }
-        break;
-    case"aftrekken":
-        echo aftrekken($getal1, $getal2);
-        if (even_getal($getal1, $getal2)) {
-            echo "<br> Het getal is oneven";
-        } else {
-            echo "<br> Het getal is even";
-        }
-        break;
-    case"vermenigvuldigen":
-        echo vermenigvuldigen($getal1, $getal2);
-        if (even_getal($getal1, $getal2)) {
-            echo "<br> Het getal is oneven";
-        } else {
-            echo "<br> Het getal is even";
-        }
-        break;
-    case"delen":
-        echo delen($getal1, $getal2);
-        if (even_getal($getal1, $getal2)) {
-            echo "<br> Het getal is oneven";
-        } else {
-            echo "<br> Het getal is even";
-        }
-        break;
-    case"modulo":
-        echo modulo($getal1, $getal2);
-        if (even_getal($getal1, $getal2)) {
-            echo "<br> Het getal is oneven";
-        } else {
-            echo "<br> Het getal is even";
-        }
-        break;
-    case"exponent":
-        echo exponent($getal1, $getal2);
-        if (even_getal($getal1, $getal2)) {
-            echo "<br> Het getal is oneven";
-        } else {
-            echo "<br> Het getal is even";
-        }
-        break;
-}
-?>
+        ?>
 
-<!DOCTYPE html>
-<html>
-    <body>
-        <br>
-        <a href="https://github.com/jmoostland">Voor meer informatie</a>
-        <br>
-        <!--        Waarom wordt de link paars?-->
-        <br>
-        <button type="button" onclick="alert('Om <button> te testen')">Klik hier!</button>
     </body>
 </html>
