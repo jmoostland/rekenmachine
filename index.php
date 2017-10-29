@@ -13,23 +13,23 @@ switch gebruiken-->
         <div style="color:#990099">
             <p>Vul hier de getallen in:</p>
         </div>
-        <form index="index.php">
+        <form action="index.php" method="POST">
             Eerste getal: <input type="text" name="getal1">
             <br>
             <br>
             <select name="operator">
                 <option name="optellen">+
                 <option name="aftrekken">-
-            <option name="vermenigvuldigen">*
-        <option name="delen">/
-</select>
-<br>
-<br>
-Tweede getal: <input type="text" name="getal2">
-<br>
-<input type="submit" value="uitkomst">
-</form>
-</body>
+                <option name="vermenigvuldigen">*
+                <option name="delen">/
+            </select>
+            <br>
+            <br>
+            Tweede getal: <input type="text" name="getal2">
+            <br>
+            <input type="submit" value="uitkomst">
+        </form>
+    </body>
 </html>
 
 <?php
@@ -79,7 +79,10 @@ switch ($operator) {
         "Je mag een keuze maken uit:<dt><dd> optellen</dd><dd> aftrekken</dd> <dd>vermenigvuldigen</dd><dd> delen</dd><dd>modulo</dd><dd>exponent.</dd></br>";
         break;
     case "optellen":
-        echo optellen($getal1, $getal2);
+
+        if ($operator == "optellen") {
+            echo optellen($getal1, $getal2);
+        }
         if (even_getal($getal1, $getal2)) {
             echo "<br> Het getal is oneven";
         } else {
